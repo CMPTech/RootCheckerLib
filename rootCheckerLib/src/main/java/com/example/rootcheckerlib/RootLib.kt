@@ -1,14 +1,16 @@
 package com.example.rootcheckerlib
 
+import android.app.Application
 import android.os.Build
 import android.os.Bundle
+import android.telephony.SignalThresholdInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 
-class RootLib : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+object RootLib : Application() {
+    override fun onCreate() {
+        super.onCreate()
         isRooted();
         canExecuteCommand("su");
         findBinary("su");
