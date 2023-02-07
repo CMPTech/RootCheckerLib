@@ -10,15 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 
 object RootLib {
-/*    override fun onCreate() {
-        super.onCreate()
-        isRooted();
-        canExecuteCommand("su");
-        findBinary("su");
-    }*/
 
     fun isRooted(): Boolean {
-        // get from build info
+
         val buildTags = Build.TAGS
         if (buildTags != null && buildTags.contains("test-keys")) {
             return true
@@ -27,19 +21,16 @@ object RootLib {
         // check if /system/app/Superuser.apk is present
         try {
             val file = File("/system/app/Superuser.apk")
-//            Toast.makeText(this, "vlaue is ${file.exists()}`", Toast.LENGTH_LONG).show()
             if (file.exists()) {
-//                Toast.makeText(this,"This device is a rooted device",Toast.LENGTH_LONG).show();
-//                return true
+                return true
             }
             else{
 //                Toast.makeText(this,"This device is not a rooted device",Toast.LENGTH_LONG).show();
             }
         } catch (e1: Exception) {
             // ignore
+            return false
         }
-
-        // try executing commands
         //return canExecuteCommand("/system/xbin/which su")|| canExecuteCommand("/system/bin/which su") || canExecuteCommand("which su");
 //        if (!canExecuteCommand("su")) if (findBinary("su")) return true
         return false
@@ -56,11 +47,10 @@ object RootLib {
             for (where in places) {
                 if (File(where + binaryName).exists()) {
                     found = true
-                    Toast.makeText(c,"This device is a rooted device", Toast.LENGTH_LONG).show();
                     break
                 }
                 else{
-                    Toast.makeText(c,"This device is not a rooted device", Toast.LENGTH_LONG).show();
+                    found = false
                 }
             }
         }
