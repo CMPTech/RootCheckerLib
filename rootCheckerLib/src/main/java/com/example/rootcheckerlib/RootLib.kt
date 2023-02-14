@@ -36,7 +36,7 @@ object RootLib {
         return false
     }
 
-     fun findBinary(c: Context, binaryName: String): Boolean {
+     fun findBinary(binaryName: String): Boolean {
         var found = false
         if (!found) {
             val places = arrayOf(
