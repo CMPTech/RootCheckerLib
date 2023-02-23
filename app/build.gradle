@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.cloudmpower.rootchecker'
+    namespace 'com.example.rootchecker'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.cloudmpower.rootchecker"
+        applicationId "com.example.rootchecker"
         minSdk 23
         targetSdk 33
         versionCode 1
