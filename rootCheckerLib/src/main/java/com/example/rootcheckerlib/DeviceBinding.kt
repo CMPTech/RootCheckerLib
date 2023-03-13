@@ -213,6 +213,7 @@ object DeviceBinding : AppCompatActivity() {
         }.start()
     }
 
+
     fun stopTimer(){
         Log.d("stopTimer", "onFinish: ")
         countdownTimer?.cancel()
