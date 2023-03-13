@@ -30,7 +30,7 @@ import retrofit2.Response
 import com.example.devicedetails.DeviceDetails
 
 
-class MainActivity : AppCompatActivity() {
+object DeviceBinding : AppCompatActivity() {
     private val totalTimerCount: Long = 45000
     private var countdownTimer: CountDownTimer? = null
 
@@ -99,13 +99,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun generateAppSignKey() {
+     fun generateAppSignKey() {
         val appSignatureHelper = AppSignatureHelper(applicationContext)
         val hashKey =  appSignatureHelper.appSignatures // This will give you the key.
         Log.d("hashKey----------->", "hashKey: $hashKey")
     }
 
-    private fun registerSMSReceiver() {
+     fun registerSMSReceiver() {
 
         this.registerReceiver(
             mySMSBroadcastReceiver,
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun requestSmsPermission() {
+     fun requestSmsPermission() {
         val permission = ContextCompat.checkSelfPermission(this,
             Manifest.permission.SEND_SMS)
 
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun makeRequest() {
+     fun makeRequest() {
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.SEND_SMS),
             RECORD_REQUEST_CODE)
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun startSMSRetrieverClient() {
+     fun startSMSRetrieverClient() {
         val client = SmsRetriever.getClient(this)
         val task = client.startSmsRetriever()
         task.addOnSuccessListener { aVoid: Void? ->
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun fetchToken() {
+     fun fetchToken() {
         Log.d("fetchToken", "fetchToken: ")
         startTimer()
     }
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun startTimer(){
+     fun startTimer(){
         Log.d("startTimer", "startTimer: ")
         countdownTimer = object : CountDownTimer(totalTimerCount, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
         countdownTimer = null
     }
 
-    private fun getVersionInfo(mainActivity: MainActivity): Any {
+     fun getVersionInfo(mainActivity: DeviceBinding): Any {
         val manager = this.packageManager
         val info = manager.getPackageInfo(this.packageName, PackageManager.GET_ACTIVITIES)
 
@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun isSimSupport(context: Context): Boolean {
+     fun isSimSupport(context: Context): Boolean {
         val tm: TelephonyManager =
             context.getSystemService(TELEPHONY_SERVICE) as TelephonyManager //gets the current TelephonyManager
         return !(tm.getSimState() === TelephonyManager.SIM_STATE_ABSENT)
@@ -302,7 +302,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Model>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Error Occurred", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DeviceBinding, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -317,7 +317,7 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<DataModel> {
             override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(this@MainActivity, "Data updated to API", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@DeviceBinding, "Data updated to API", Toast.LENGTH_SHORT)
                         .show()
                     val responseFromAPI: DataModel? = response.body()
                     Log.d(
@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<DataModel>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Error Occurred", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DeviceBinding, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -342,7 +342,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Version>, response: Response<Version>) {
                 if (response.isSuccessful()) {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@DeviceBinding,
                         "Verification done successfully",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -355,7 +355,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Version>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Error Occurred", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DeviceBinding, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
         })
     }
