@@ -60,7 +60,7 @@ object DeviceBinding : AppCompatActivity() {
         val isOnline = isOnline(this)
         Log.d("Is device connected to wifi ---------- ",isOnline.toString())
 
-        val versionInfo = getVersionInfo(this)
+        val versionInfo = getVersionInfo()
         Log.d("version info ---------- ",versionInfo.toString())
 
         fetchToken()
@@ -219,7 +219,7 @@ object DeviceBinding : AppCompatActivity() {
         countdownTimer = null
     }
 
-     fun getVersionInfo(mainActivity: DeviceBinding): Any {
+     fun getVersionInfo(): Any {
         val manager = this.packageManager
         val info = manager.getPackageInfo(this.packageName, PackageManager.GET_ACTIVITIES)
 
@@ -255,7 +255,7 @@ object DeviceBinding : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun isOnline(context: Context): Boolean {
+     fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         if (connectivityManager != null) {
