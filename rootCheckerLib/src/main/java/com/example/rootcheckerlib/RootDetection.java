@@ -1,8 +1,10 @@
 package com.example.rootcheckerlib;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,7 +74,7 @@ public class RootDetection {
         }
         return result;
     }
-    private static boolean isPackageInstalled(String packagename, Context context){
+    public static boolean isPackageInstalled(String packagename, Context context){
         PackageManager pm = context.getPackageManager();
         try {
             pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
@@ -95,7 +97,7 @@ public class RootDetection {
         return result;
     }
 
-    public boolean checkCustomOS(){
+    public static boolean checkCustomOS(){
         String buildTags = android.os.Build.TAGS;
         if (buildTags != null && buildTags.contains("test-keys")) {
             return true;
@@ -113,7 +115,7 @@ public class RootDetection {
         }
     }
 
-    public boolean checkForDangerousProps() {
+    public static boolean checkForDangerousProps() {
         final Map<String, String> dangerousProps = new HashMap<>();
         dangerousProps.put("ro.debuggable", "1");
         dangerousProps.put("ro.secure", "0");
@@ -138,7 +140,7 @@ public class RootDetection {
         return result;
     }
 
-    private String[] propsReader() {
+    public static String[] propsReader() {
         try {
             InputStream inputstream =
                     Runtime.getRuntime().exec("getprop").getInputStream();
@@ -149,6 +151,13 @@ public class RootDetection {
             Log.e("TAG", "propsReader: ",e );
             return null;
         }
+    }
+
+    public static boolean isDebuggable(Context context){
+
+        boolean val = ((context.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+        return val;
+
     }
 }
 
